@@ -15,7 +15,6 @@ VALUES
     ('Dummy',               'Portishead',       'Go! Discs',    '828 522-1', 'vinyl LP',   1994, ARRAY['trip-hop'],           'very good', 'Shelf B5', NULL);
 
 -- Note: digitization rows are created automatically by the trigger
--- Update a couple to show different statuses
 UPDATE digitization SET status = 'done', digitized_by = 'archive team', digitized_at = '2025-06-01', file_path = '/archive/flac/miles-davis-kind-of-blue.flac', file_format = 'FLAC'
 WHERE record_id = (SELECT id FROM records WHERE title = 'Kind of Blue');
 
