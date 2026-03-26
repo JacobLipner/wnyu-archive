@@ -33,7 +33,7 @@ ORDER BY count DESC;
 
 -- ------------------------------------------------------------
 -- 3. Search across artist, title, label, and notes at once
---    Replace 'coltrane jazz' with your search terms
+--    Replace 'coltrane & jazz' with your search terms
 -- ------------------------------------------------------------
 SELECT
     r.artist,
@@ -71,7 +71,6 @@ ORDER BY r.year;
 
 -- ------------------------------------------------------------
 -- 5. Records by genre
---    PostgreSQL arrays let you store multiple genres per record
 -- ------------------------------------------------------------
 SELECT
     r.artist,
