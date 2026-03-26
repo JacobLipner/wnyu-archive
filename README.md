@@ -107,9 +107,3 @@ One row per record, created automatically when a record is added. Key fields:
 | `digitized_at` | Date completed |
 | `file_path` | Where the digital file lives |
 | `file_format` | FLAC / WAV / MP3 / AAC |
-
-## Tips
-
-- **Importing existing spreadsheets:** Export to CSV and use `\copy records FROM 'file.csv' CSV HEADER;` in psql
-- **Auto-pulling CD metadata:** If records have barcodes, the [MusicBrainz API](https://musicbrainz.org/doc/MusicBrainz_API) can return artist/title/label/year automatically
-- **Browsing without writing SQL:** [Datasette](https://datasette.io/) or [pgAdmin](https://www.pgadmin.org/) give you a visual interface over the database
