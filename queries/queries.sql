@@ -48,7 +48,8 @@ WHERE to_tsvector('english',
         COALESCE(r.artist, '') || ' ' ||
         COALESCE(r.title, '') || ' ' ||
         COALESCE(r.label, '') || ' ' ||
-        COALESCE(r.notes, '')
+        COALESCE(r.notes, '') || ' ' ||
+        COALESCE(array_to_string(r.genres, ' '), '')
       ) @@ to_tsquery('english', 'coltrane & jazz')
 ORDER BY r.artist, r.title;
 
