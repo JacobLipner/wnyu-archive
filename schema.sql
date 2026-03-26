@@ -8,12 +8,12 @@ CREATE TABLE records (
     title       TEXT NOT NULL,
     artist      TEXT NOT NULL,
     label       TEXT,
-    catalog_number TEXT,             -- the label's catalog number printed on the record
+    catalog_number TEXT,            
     format      TEXT CHECK(format IN ('vinyl 7"', 'vinyl 10"', 'vinyl 12"', 'vinyl LP', 'CD', 'cassette', 'other')),
     year        INTEGER CHECK(year > 1800 AND year <= EXTRACT(YEAR FROM NOW())),
-    genres      TEXT[],              -- e.g. ARRAY['jazz', 'bebop']
+    genres      TEXT[],            
     condition   TEXT CHECK(condition IN ('mint', 'very good', 'good', 'fair', 'poor')),
-    location    TEXT,                -- physical location in the archive, e.g. 'Shelf A3'
+    location    TEXT,               
     barcode     TEXT UNIQUE,
     notes       TEXT,
     created_at  TIMESTAMP DEFAULT NOW(),
@@ -28,7 +28,7 @@ CREATE TABLE digitization (
                         CHECK(status IN ('pending', 'in_progress', 'done', 'skipped')),
     digitized_by    TEXT,
     digitized_at    DATE,
-    file_path       TEXT,            -- where the digital file lives, e.g. '/archive/vinyl/miles-davis-kind-of-blue.flac'
+    file_path       TEXT,           
     file_format     TEXT CHECK(file_format IN ('FLAC', 'WAV', 'MP3', 'AAC', 'other')),
     notes           TEXT,
     created_at      TIMESTAMP DEFAULT NOW(),
@@ -38,10 +38,10 @@ CREATE TABLE digitization (
 -- One digitization row per record (enforced)
 CREATE UNIQUE INDEX one_digitization_per_record ON digitization(record_id);
 
--- ============================================================
+-- ===================================================================
 -- Full-text search index
 -- Lets you search across artist, title, label, and notes at once
--- ============================================================
+-- ===================================================================
 CREATE INDEX records_fts ON records
     USING GIN (
         to_tsvector('english', 
@@ -52,9 +52,9 @@ CREATE INDEX records_fts ON records
         )
     );
 
--- ============================================================
+-- ===================================================================
 -- Helpful indexes for common lookups
--- ============================================================
+-- ===================================================================
 CREATE INDEX idx_records_artist  ON records(artist);
 CREATE INDEX idx_records_format  ON records(format);
 CREATE INDEX idx_records_year    ON records(year);
