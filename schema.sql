@@ -35,7 +35,7 @@ CREATE TABLE digitization (
     updated_at      TIMESTAMP DEFAULT NOW()
 );
 
--- One digitization row per record (enforced)
+-- One digitization row per record
 CREATE UNIQUE INDEX one_digitization_per_record ON digitization(record_id);
 
 -- ===================================================================
