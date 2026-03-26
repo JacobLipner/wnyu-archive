@@ -1,17 +1,13 @@
-# Environment variables — never commit your database credentials
 .env
 .env.local
 *.env
 
-# PostgreSQL dump files (may contain real data)
 *.dump
 *.sql.gz
 
-# OS files
 .DS_Store
 Thumbs.db
 
-# Editor files
 .vscode/
 .idea/
 *.swp
