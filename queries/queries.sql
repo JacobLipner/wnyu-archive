@@ -3,9 +3,7 @@
 -- ============================================================
 
 
--- ------------------------------------------------------------
 -- 1. Everything not yet digitized
--- ------------------------------------------------------------
 SELECT
     r.id,
     r.artist,
@@ -19,9 +17,7 @@ WHERE d.status = 'pending'
 ORDER BY r.artist, r.title;
 
 
--- ------------------------------------------------------------
 -- 2. Digitization progress summary
--- ------------------------------------------------------------
 SELECT
     d.status,
     COUNT(*) AS count,
@@ -31,10 +27,8 @@ GROUP BY d.status
 ORDER BY count DESC;
 
 
--- ------------------------------------------------------------
 -- 3. Search across artist, title, label, and notes at once
 --    Replace 'coltrane & jazz' with your search terms
--- ------------------------------------------------------------
 SELECT
     r.artist,
     r.title,
@@ -54,9 +48,7 @@ WHERE to_tsvector('english',
 ORDER BY r.artist, r.title;
 
 
--- ------------------------------------------------------------
 -- 4. All records by a specific artist (partial match)
--- ------------------------------------------------------------
 SELECT
     r.artist,
     r.title,
@@ -70,9 +62,7 @@ WHERE r.artist ILIKE '%miles davis%'
 ORDER BY r.year;
 
 
--- ------------------------------------------------------------
 -- 5. Records by genre
--- ------------------------------------------------------------
 SELECT
     r.artist,
     r.title,
@@ -85,9 +75,7 @@ WHERE 'jazz' = ANY(r.genres)
 ORDER BY r.artist;
 
 
--- ------------------------------------------------------------
 -- 6. Records in good enough condition to digitize, not yet done
--- ------------------------------------------------------------
 SELECT
     r.artist,
     r.title,
@@ -101,9 +89,7 @@ WHERE d.status = 'pending'
 ORDER BY r.condition, r.artist;
 
 
--- ------------------------------------------------------------
 -- 7. Recently digitized records
--- ------------------------------------------------------------
 SELECT
     r.artist,
     r.title,
@@ -118,9 +104,7 @@ ORDER BY d.digitized_at DESC
 LIMIT 20;
 
 
--- ------------------------------------------------------------
 -- 8. Records by decade
--- ------------------------------------------------------------
 SELECT
     (r.year / 10) * 10 AS decade,
     COUNT(*) AS total_records,
@@ -132,10 +116,8 @@ GROUP BY decade
 ORDER BY decade;
 
 
--- ------------------------------------------------------------
 -- 9. Mark a record as digitized
 --    Replace 42 with the actual record id
--- ------------------------------------------------------------
 UPDATE digitization
 SET
     status       = 'done',
