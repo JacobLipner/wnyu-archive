@@ -38,10 +38,8 @@ CREATE TABLE digitization (
 -- One digitization row per record
 CREATE UNIQUE INDEX one_digitization_per_record ON digitization(record_id);
 
--- ===================================================================
 -- Full-text search index
 -- Lets you search across artist, title, label, and notes at once
--- ===================================================================
 CREATE INDEX records_fts ON records
     USING GIN (
         to_tsvector('english', 
@@ -52,17 +50,13 @@ CREATE INDEX records_fts ON records
         )
     );
 
--- ===================================================================
 -- Helpful indexes for common lookups
--- ===================================================================
 CREATE INDEX idx_records_artist  ON records(artist);
 CREATE INDEX idx_records_format  ON records(format);
 CREATE INDEX idx_records_year    ON records(year);
 CREATE INDEX idx_digitization_status ON digitization(status);
 
--- ============================================================
 -- Auto-update updated_at on any change
--- ============================================================
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -79,10 +73,8 @@ CREATE TRIGGER digitization_updated_at
     BEFORE UPDATE ON digitization
     FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
--- ============================================================
 -- Seed: insert a digitization row for every new record automatically
 -- So every record starts as 'pending' without manual inserts
--- ============================================================
 CREATE OR REPLACE FUNCTION auto_create_digitization()
 RETURNS TRIGGER AS $$
 BEGIN
